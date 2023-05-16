@@ -1,0 +1,130 @@
+﻿@model PaginatedList<WeatherCheck.Models.Weather>
+
+@{
+    ViewData["Title"] = "Weather View";
+}
+
+<h3>Архив данных по погоде в Москве</h3>
+
+<form asp-action="Index" method="get">
+    <div class="form-row">
+        <p class="m-2">Фильтр по номеру месяца и года:</p>
+        <div class="form-actions no-color m-2">
+            <p>
+                <input type="text" name="searchMonth" placeholder="Месяц" />
+            </p>
+        </div>
+        <div class="form-actions no-color m-2">
+            <p>
+                <input type="text" name="searchYear" placeholder="Год" />
+            </p>
+        </div>
+        <div class="form-actions no-color m-2" style="margin-bottom:10px">
+            <button type="submit" class="btn btn-primary btn-sm">Применить</button>
+            <a asp-action="Index">Очистить</a>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Temperature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().RelativeHumidity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().DewPoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().AtmosphericPressure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().WindDirection)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().WindSpeed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Cloudiness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CloudCeiling)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().HorizontalVisibility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().WeatherEvents)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temperature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RelativeHumidity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DewPoint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AtmosphericPressure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WindDirection)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WindSpeed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cloudiness)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CloudCeiling)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HorizontalVisibility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeatherEvents)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

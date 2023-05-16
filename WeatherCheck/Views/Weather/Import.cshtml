@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Weather Upload";
+}
+<h3>Загрузка архивов по погоде в Москве</h3>
+<div class="m-2">
+    <p>Выберите один или несколько файлов</p>
+    <div>
+        <form method="post" asp-controller="Weather" asp-action="Import" enctype="multipart/form-data">
+            <input type="file" name="files" multiple />
+            <button type="submit">Загрузить</button>
+            <div class="form-group">
+                <span>@ViewData["ErrorImport"]</span>
+            </div>
+            <div class="form-group">
+                <span>@ViewData["SQLResult"]</span>
+            </div>
+        </form>
+    </div>
+</div>
